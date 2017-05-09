@@ -45,10 +45,10 @@ command = touch /tmp/example
 The easiest way to deploy **ofelia** is using *Docker*.
 
 ```sh
-docker run -it -v /etc/ofelia:/etc/ofelia mcuadros/ofelia:latest
+docker run -it -v /my/ofelia.conf:/etc/ofelia.conf mcuadros/ofelia:latest
 ```
 
-Don't forget to place your `config.ini` at your host machine.
+Don't forget to place your `ofelia.conf` at your host machine.
 
 If don't want to run **ofelia** using our *Docker* image you can download a binary from [releases](https://github.com/mcuadros/ofelia/releases) page.
 

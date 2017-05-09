@@ -26,7 +26,6 @@ GOCLEAN = $(GOCMD) clean
 GOGET = $(GOCMD) get -v
 GOTEST = $(GOCMD) test -v
 GHRELEASE = github-release
-
 # Coverage
 COVERAGE_REPORT = coverage.txt
 COVERAGE_MODE = atomic
@@ -61,12 +60,12 @@ packages: dependencies
 			cd $(BASE_PATH); \
 			mkdir -p $(BUILD_PATH)/$(PROJECT)_$${os}_$${arch}; \
 			for cmd in $(COMMANDS); do \
-				GOOS=$${os} GOARCH=$${arch} $(GOCMD) build -ldflags "-X main.version=$(BRANCH) -X main.build=$(BUILD)" -o $(BUILD_PATH)/$(PROJECT)_$${os}_$${arch}/$${cmd} $${cmd}.go;\
+				CGO_ENABLED=0 GOOS=$${os} GOARCH=$${arch} $(GOCMD) build -a -installsuffix -ldflags="-X main.version=master main.build=1" -o $(BUILD_PATH)/$(PROJECT)_$${os}_$${arch}/$${cmd} $${cmd}.go;\
 			done; \
 			for content in $(PKG_CONTENT); do \
 				cp -rf $${content} $(BUILD_PATH)/$(PROJECT)_$${os}_$${arch}/; \
 			done; \
-			cd  $(BUILD_PATH) && tar -cvzf $(BUILD_PATH)/$(PROJECT)_$(BRANCH)_$${os}_$${arch}.tar.gz $(PROJECT)_$${os}_$${arch}/; \
+#			cd  $(BUILD_PATH) && tar -cvzf $(BUILD_PATH)/$(PROJECT)_$(BRANCH)_$${os}_$${arch}.tar.gz $(PROJECT)_$${os}_$${arch}/; \
 		done; \
 	done;
 
